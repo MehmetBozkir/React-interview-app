@@ -42,6 +42,26 @@ function WeatherApp() {
     );
   }
 
+  if (data && data.error) {
+    return (
+      <div
+        className="hero"
+        style={{
+          backgroundImage:
+            "url(https://i.ibb.co/1Z3Cyxt/pexels-pixabay-209831.jpg)",
+        }}
+      >
+        <div className="hero-content text-center">
+          <div>
+            :<p className="text-white text-3xl">An Error Occurred</p>
+            <hr />
+            <p className="text-white text-3xl">Cause : {data.error.message}</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <>
       <div
@@ -66,6 +86,15 @@ function WeatherApp() {
             >
               SEARCH
             </button>
+
+            {data && (
+              <div className="card text-white text-xl mx-auto w-96 bg-base-300 bg-opacity-60 p-10 shadow-xl">
+                <h1>
+                  {" "}
+                  {data.location.name} / {data.location.country}
+                </h1>
+              </div>
+            )}
 
             {data && (
               <div className="carousel rounded-box">
