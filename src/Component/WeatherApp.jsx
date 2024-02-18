@@ -1,28 +1,46 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
+import { useQuery } from "react-query";
+import { v4 as uuidv4 } from "uuid";
+import { useState } from "react";
 
 function WeatherApp() {
-  const [weatherData, setWeatherData] = useState(null);
   const [location, setLocation] = useState("");
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          `https://api.weatherapi.com/v1/forecast.json?key=018c6b65e54a4c2b9fe182923241201&q=${location}&days=3&aqi=yes&alerts=yes`
-        );
-        setWeatherData(response.data);
-        console.log(response);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    setTimeout(fetchData, 2000);
-  }, [location]);
+  const fetchData = useQuery(
+    [],
+    () => {
+      return fetch(
+        `https://api.weatherapi.com/v1/forecast.json?key=${
+          import.meta.env.VITE_WEATHER_API
+        }&q=${location}&days=3&aqi=yes&alerts=yes`
+      ).then((response) => response.json());
+    },
+    {
+      enabled: false,
+    }
+  );
+
+  const { data, isLoading, refetch } = fetchData;
+  console.log(fetchData, "fetchData");
 
   const handeLocationChange = (event) => {
     setLocation(event.target.value);
   };
+
+  if (isLoading) {
+    return (
+      <div
+        className="hero"
+        style={{
+          backgroundImage:
+            "url(https://i.ibb.co/1Z3Cyxt/pexels-pixabay-209831.jpg)",
+        }}
+      >
+        <div className="hero-content text-center text-white text-9xl">
+          Loading...
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -42,10 +60,17 @@ function WeatherApp() {
               value={location}
               onChange={handeLocationChange}
             />
-            {weatherData && (
+            <button
+              className="btn btn-outline btn-white text-white m-3"
+              onClick={() => refetch()}
+            >
+              SEARCH
+            </button>
+
+            {data && (
               <div className="carousel rounded-box">
-                {weatherData.forecast.forecastday.map((day) => (
-                  <div className="p-20" key={day.date}>
+                {data.forecast.forecastday.map((day) => (
+                  <div className="p-20" key={uuidv4()}>
                     <div className="border-double border-8 border-indigo-600 shadow-xl p-5">
                       <img
                         className="mx-40 w-20"
