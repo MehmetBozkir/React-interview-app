@@ -18,6 +18,8 @@ API testing via ReactQuery.
     
   ## 💬 First Project Differences/Advantages
 
+  First Project : https://github.com/MehmetBozkir/React_Weather_App.git
+
 1\. React Query:
 
 -   React Query used instead of Axios:
