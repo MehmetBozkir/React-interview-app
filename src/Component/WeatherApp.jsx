@@ -53,9 +53,26 @@ function WeatherApp() {
       >
         <div className="hero-content text-center">
           <div>
-            :<p className="text-white text-3xl">An Error Occurred</p>
-            <hr />
-            <p className="text-white text-3xl">Cause : {data.error.message}</p>
+            <input
+              className="input text-2xl input-bordered input-primary w-full max-w-xs"
+              type="text"
+              placeholder="Enter a city name"
+              value={location}
+              onChange={handeLocationChange}
+            />
+            <button
+              className="btn btn-outline btn-white text-white m-3"
+              onClick={() => refetch()}
+            >
+              SEARCH
+            </button>
+            <div className="card text-white text-xl mx-auto w-960 p-80">
+              <p className="text-white text-3xl">An Error Occurred</p>
+              <hr />
+              <p className="text-white text-3xl">
+                Cause : {data.error.message}
+              </p>
+            </div>
           </div>
         </div>
       </div>
