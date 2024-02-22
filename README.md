@@ -9,7 +9,7 @@ A Weather App Via Api | Reactjs, ReactQuery ,Tailwindcss and Daisyui.
 <br> 
   
   :wrench: Features 
-  ----------------------
+  -----------------------
 
   
 API testing via ReactQuery.
