@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import Logo from '/logo.jpeg'
 
 function Navbar() {
   const [theme, setTheme] = useState(
@@ -14,6 +15,10 @@ function Navbar() {
     }
   };
 
+  const handleClick = () => {
+    window.location.reload();
+  };
+
   useEffect(() => {
     localStorage.setItem("theme", theme);
     const localTheme = localStorage.getItem("theme");
@@ -21,9 +26,10 @@ function Navbar() {
   }, [theme]);
   return (
     <div>
-      <div className="navbar bg-primary text-primary-content px-4">
+      <div className="navbar  ">
         <div className="flex-1 flex items-center justify-center">
-          <button className="btn btn-ghost text-5xl">Weather App</button>
+          
+          <button onClick={handleClick} className="ml-2 text-3xl flex mt-6"> <img src={Logo} alt="Logo" className="mr-4"/> iWeather</button>
         </div>
         <div className="flex-none">
           <label className="cursor-pointer grid place-items-center">
