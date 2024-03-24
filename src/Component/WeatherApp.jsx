@@ -1,6 +1,7 @@
+"use client";
 import { useQuery } from "react-query";
 import { v4 as uuidv4 } from "uuid";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Bgimage from "/bg.jpeg";
 import {
   ThermometerSimple,
@@ -12,6 +13,35 @@ import {
 
 function WeatherApp() {
   const [location, setLocation] = useState("");
+  const [position, setPosition] = useState({ latitude: null, longitude: null });
+  const [isCurrentLocationUsed, setIsCurrentLocationUsed] = useState(false);
+
+  useEffect(() => {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        setPosition({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
+      });
+    } else {
+      console.log("Geolocation is not available in your browser.");
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isCurrentLocationUsed) {
+      setLocation(`${position.latitude},${position.longitude}`);
+
+      const timeout = setTimeout(() => {
+        refetch();
+
+        setIsCurrentLocationUsed(false);
+      }, 100);
+
+      return () => clearTimeout(timeout);
+    }
+  }, [isCurrentLocationUsed]);
 
   const fetchData = useQuery(
     [],
@@ -211,6 +241,14 @@ function WeatherApp() {
               onClick={() => refetch()}
             >
               SEARCH
+            </button>
+            <button
+              className="btn btn-outline bg-green-500 text-white m-3"
+              onClick={() => {
+                setIsCurrentLocationUsed(true);
+              }}
+            >
+              MY LOCATION
             </button>
           </div>
         </div>
