@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import Logo from '/logo.jpeg'
+import Logo from "/logo.jpeg";
 
 function Navbar() {
   const [theme, setTheme] = useState(
@@ -26,10 +26,12 @@ function Navbar() {
   }, [theme]);
   return (
     <div>
-      <div className="navbar  ">
+      <div className="navbar">
         <div className="flex-1 flex items-center justify-center">
-          
-          <button onClick={handleClick} className="ml-2 text-3xl flex mt-6"> <img src={Logo} alt="Logo" className="mr-4"/> iWeather</button>
+          <button onClick={handleClick} className="ml-2 text-3xl flex mt-5">
+            {" "}
+            <img src={Logo} alt="Logo" className="mr-4" /> iWeather
+          </button>
         </div>
         <div className="flex-none">
           <label className="cursor-pointer grid place-items-center">

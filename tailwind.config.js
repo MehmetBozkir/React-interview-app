@@ -9,6 +9,9 @@ export default {
       fontFamily: {
         'nunito': ['Nunito', 'sans-serif'],
       },
+      minHeight: {
+        'screen': '92vh',
+      }
     },
   },
   plugins: [require("daisyui")],

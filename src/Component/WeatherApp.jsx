@@ -73,11 +73,14 @@ function WeatherApp() {
 
   if (data && data.error) {
     return (
-      <div className="hero">
+      <div className="hero min-h-screen">
         <div className="hero-content text-center">
           <div>
-            <p className="text-xl">
-              Welcome to <span>TypeWeather</span>{" "}
+          <p className="text-2xl font-bold text-slate-200">
+              Welcome to <span className="text-sky-custom">TypeWeather</span>{" "}
+            </p>
+            <p className="mb-4">
+              Choose a location to see the weather forecast
             </p>
             <input
               className="input text-2xl input-bordered input-primary w-full max-w-xs"
@@ -87,12 +90,20 @@ function WeatherApp() {
               onChange={handeLocationChange}
             />
             <button
-              className="btn btn-outline btn-white text-white m-3"
+              className="btn btn-outline bg-slate-700 text-white m-3"
               onClick={() => refetch()}
             >
               SEARCH
             </button>
-            <div className="card text-white text-xl mx-auto w-960 p-80">
+            <button
+              className="btn btn-outline bg-green-500 text-white m-3"
+              onClick={() => {
+                setIsCurrentLocationUsed(true);
+              }}
+            >
+              MY LOCATION
+            </button>
+            <div className="card text-white text-xl mx-auto mt-10">
               <p className="text-white text-3xl">An Error Occurred</p>
               <hr />
               <p className="text-white text-3xl">
@@ -112,7 +123,7 @@ function WeatherApp() {
           <div className="hero-content">
             <div>
               <div
-                className="card text-white text-xl w-26 max-h-70 bg-opacity-60 p-6 shadow-xl"
+                className="card text-white text-xl bg-opacity-60 p-6 shadow-xl"
                 style={{ backgroundImage: `url(${Bgimage})` }}
               >
                 <div>
@@ -124,13 +135,13 @@ function WeatherApp() {
                 <div>
                   <div className="flex mt-36">
                     <div className="text-left w-11/12 ">
-                      <h1 className="text-8xl mt-6">{data.current.temp_c}°c</h1>
+                      <h1 className="text-6xl mt-6">{data.current.temp_c}°c</h1>
                       <h1>{data.current.condition.text}</h1>
                     </div>
                     <img
                       src={data.current.condition.icon}
                       alt={data.current.condition.text}
-                      className="w-3/12 mt-"
+                      className="w-4/12"
                       width={96}
                       height={96}
                     />
@@ -138,7 +149,7 @@ function WeatherApp() {
                 </div>
               </div>
 
-              <div className="card text-white text-xl mx-auto bg-base-300 w-26 mt-5 shadow-xl">
+              <div className="card text-white text-xl mx-auto bg-base-300 mt-5 shadow-xl">
                 <div className="p-5 flex">
                   <p className="text-left w-1/2 flex">
                     {" "}
@@ -193,7 +204,7 @@ function WeatherApp() {
                 {data && (
                   <div className="carousel rounded-box">
                     {data.forecast.forecastday.map((day) => (
-                      <div className="p-20" key={uuidv4()}>
+                      <div key={uuidv4()}>
                         <div className="shadow-xl">
                           <h2 className="p-2"> {day.date} </h2>
                           <img
