@@ -37,6 +37,12 @@ $ cd React-interview-app
 # Install dependencies
 $ npm install
 
+# Visit the page and get the API key
+$ https://www.weatherapi.com/
+
+# Include the personal API key you have in the .env folder
+$ echo "VITE_WEATHER_API=YOUR_API_KEY" > .env
+
 # Run the app
 $ npm run dev
 ```
